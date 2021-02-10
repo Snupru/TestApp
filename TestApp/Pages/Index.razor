@@ -15,7 +15,7 @@
             <div id="outputDivLabel">Ausgabe:</div>
             <div id="outputDivInterval">@intervalOutput</div>
         </div>
-        <div id="resetDivButton"><button type="button">Reset</button></div>
+        <div id="resetDivButton"><button type="button" @onclick="Reset">Reset</button></div>
     </div>
 </div>
 
@@ -46,5 +46,12 @@
         intervalOutput = string.Empty;
         foreach (var entry in list)
             intervalOutput += entry.GetIntervalAsString();
+    }
+
+    //Werte löschen
+    private void Reset()
+    {
+        intervalInput = string.Empty;
+        intervalOutput = string.Empty;
     }
 }

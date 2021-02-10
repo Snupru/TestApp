@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TestApp.Model.Interface;
+﻿using TestApp.Model.Interface;
 
 namespace TestApp.Model
 {
+    //Datenhalter
     public class Interval : IInterval
     {
         public int NumberOne { get; }
@@ -25,10 +22,10 @@ namespace TestApp.Model
                 NumberTwo = tmpValue;
         }
 
-        public Interval(int one, int two)
+        public Interval(int firstNumber, int secondNumber)
         {
-            NumberOne = one;
-            NumberTwo = two;
+            NumberOne = firstNumber;
+            NumberTwo = secondNumber;
         }
 
         public string GetIntervalAsString()
