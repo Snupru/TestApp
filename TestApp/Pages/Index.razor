@@ -1,0 +1,50 @@
+﻿@page "/"
+
+<div>
+    <div class="mainTitle">Der Intervaller</div>
+    <div id="mainDiv">
+        <div id="inputDiv">
+            <div id="inputDivLabel">Geben Sie ihre Intervalle ein:</div>
+            <div id="inputDivInterval">
+                <input type="text" id="inputInterval" @bind="intervalInput">
+                <span id="tooltiptext">Eingabe bsp: <br /> [2,5][1,10]</span>
+            </div>
+            <div id="inputDivButton"><button id="inputButton" type="button" @onclick="CheckIntervalInput">OK</button></div>
+        </div>
+        <div id="outputDiv">
+            <div id="outputDivLabel">Ausgabe:</div>
+            <div id="outputDivInterval">@intervalOutput</div>
+        </div>
+        <div id="resetDivButton"><button type="button">Reset</button></div>
+    </div>
+</div>
+
+@code{
+    private string intervalInput = "[1,2][2,9][3,8][10,17]";
+    private string intervalOutput = "->";
+    private TestApp.Service.Interface.IIntervalService intervalService = new Service.IntervalService();
+
+    private void CheckIntervalInput()
+    {
+        if (string.IsNullOrEmpty(intervalInput))
+            return;
+
+        if (intervalService.CheckInput(intervalInput))
+        {
+            intervalOutput = "Die eingegebene Zeichenkette ist fehlerhaft";
+            return;
+        }
+
+        var list = intervalService.GetListOfIntervals(intervalInput);
+
+        if (!list.Any())
+        {
+            intervalOutput = "Fehler beim verarbeiten der Zeichenkette";
+            return;
+        }
+
+        intervalOutput = string.Empty;
+        foreach (var entry in list)
+            intervalOutput += entry.GetIntervalAsString();
+    }
+}
