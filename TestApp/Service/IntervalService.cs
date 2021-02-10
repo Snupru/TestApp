@@ -41,27 +41,37 @@ namespace TestApp.Service
         private IEnumerable<IInterval> CheckIntervalListAfterOverlap(List<Interval> intervals)
         {
             var newIntervalList = new List<Interval>();
-            var min = int.MaxValue;
-            var max = int.MinValue;
-
             for (var i = intervals.Count - 1; i >= 0; i--)
             {
                 var entry = intervals[i];
-                min = entry.NumberOne;
-                max = entry.NumberTwo;
+                var entryFound = false;
 
-                var tmpList = intervals.Where(x => x != entry && entry.NumberTwo < x.NumberOne).ToList();
+                var min = entry.NumberOne;
+                var max = entry.NumberTwo;
 
-                if (tmpList.Any())
+                foreach (var listEntry in intervals)
                 {
+                    if (listEntry == entry)
+                        continue;
 
+                    if (listEntry.NumberOne < min && min < listEntry.NumberTwo)
+                    {
+
+                    }
+
+                    if (listEntry.NumberTwo > max && max < listEntry.NumberOne)
+                    {
+
+                    }
                 }
-                else
+
+                if (!entryFound)
                 {
                     newIntervalList.Add(entry);
                     intervals.Remove(entry);
                 }
-                break;
+                else
+                    intervals.Remove(entry);
             }
 
             return newIntervalList;
