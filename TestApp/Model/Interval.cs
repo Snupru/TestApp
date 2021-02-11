@@ -10,6 +10,9 @@ namespace TestApp.Model
 
         public Interval(string interval)
         {
+            if (string.IsNullOrEmpty(interval))
+                return;
+
             var splitString = interval.Split(',');
             if (splitString.Length != 2)
                 return;

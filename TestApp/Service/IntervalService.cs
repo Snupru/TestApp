@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using TestApp.Service.Interface;
 using TestApp.Model.Interface;
@@ -28,8 +26,12 @@ namespace TestApp.Service
         }
 
         //Gibt eine gefilterte Liste zurück.
+        //Bei Fehler wird eine leere Liste zurückgegeben.
         public IEnumerable<IInterval> GetListOfIntervals(string input)
         {
+            if (string.IsNullOrEmpty(input))
+                return new List<IInterval>();
+
             var tmpStr = input.Replace("][", ";").Replace("[", "").Replace("]", "");
             var splitStr = tmpStr.Split(';');
 
